@@ -1,0 +1,74 @@
+from selenium import webdriver
+from datetime import datetime
+from selenium.webdriver.common.keys import Keys
+
+class Pancakeswap_scraper():
+    def __init__(self, url="https://exchange.pancakeswap.finance/#/swap"):
+        # placeholders
+        self.pair = ""
+        self.currency1_amount = -1
+
+
+        # LOAD Site
+        option = webdriver.ChromeOptions()
+
+        self.browser = webdriver.Chrome(executable_path="./drivers/chromedriver", chrome_options=option)
+        self.browser.get(url)
+        self.browser.implicitly_wait(5)
+        # Find elements
+        # Buttons
+        self.currency_1_btn = self.browser.find_element_by_xpath('//*[@id="swap-currency-input"]/div/div[2]/button')
+        self.currency_2_btn = self.browser.find_element_by_xpath('//*[@id="swap-currency-output"]/div/div[2]/button')
+        # Input
+        self.currency_1_input = self.browser.find_element_by_xpath('//*[@id="swap-currency-input"]/div/div[2]/input')
+        self.currency_2_input = self.browser.find_element_by_xpath('//*[@id="swap-currency-output"]/div/div[2]/input')
+
+    # HELPER FUNCTIONS #
+
+    # Add currency 1 value that we want to convert (by default this will be 1
+    def send_currency_1_amount(self, amount=1):
+        self.currency_1_input.click()
+        self.currency_1_input.send_keys(str(amount))
+
+    def select_pair(self, currency1="CAKE", currency2="BUSD", currency1_amount=1):
+        # Select first currency
+        self.currency_1_btn.click()
+        token_search = self.browser.find_element_by_id("token-search-input")
+        token_search.send_keys(currency1)
+        self.browser.implicitly_wait(1)
+        token_search.send_keys(Keys.ENTER)
+        self.browser.implicitly_wait(1)
+
+        # select second currency
+        self.currency_2_btn.click()
+        token_search = self.browser.find_element_by_id("token-search-input")
+        token_search.send_keys(currency2)
+        self.browser.implicitly_wait(1)
+        token_search.send_keys(Keys.ENTER)
+        self.browser.implicitly_wait(1)
+        # only send currency value if its changing
+        if self.pair == "" or currency1_amount != self.currency1_amount:
+            self.send_currency_1_amount(amount=currency1_amount)
+            self.currency1_amount = currency1_amount
+        # create pair, to be used for return
+        self.pair = str(currency1) + "/" + str(currency2)
+
+    # pancakeswap updates every 30 seconds, you can call this in a loop for continuous collection
+    def get_pair_price(self):
+        # wait for input value to update, create loop to get updated value
+        value = self.currency_2_input.get_attribute("value")
+        while value is None or value == "":
+            value = self.currency_2_input.get_attribute("value")
+
+        return {"time": datetime.now().strftime("%m/%d/%Y, %H:%M:%S"), "value": value, "pair": self.pair}
+
+
+
+
+
+
+
+
+
+
+
