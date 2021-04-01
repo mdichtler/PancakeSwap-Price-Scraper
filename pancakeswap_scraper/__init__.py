@@ -60,7 +60,14 @@ class Pancakeswap_scraper():
         while value is None or value == "":
             value = self.currency_2_input.get_attribute("value")
 
-        return {"time": datetime.now().strftime("%m/%d/%Y, %H:%M:%S"), "value": value, "pair": self.pair}
+        # returns two values, first one is saved to database (save_data == data),
+        # second one is used for determining correct path
+
+        date_data = datetime.now()
+        # {data} , {pair - BNB_BUSD, replace / with _ , date - YYYYMMDD, time - HHMM, seconds - SS}
+        return {"time": date_data.strftime("%m/%d/%Y, %H:%M:%S"), "value": value}, \
+               {"pair": self.pair.replace('/', '_'), "date": date_data.strftime("%Y%m%d"), "time": date_data.strftime("%H%M"),
+                "seconds": date_data.strftime("%S")}
 
 
 
