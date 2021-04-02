@@ -1,32 +1,23 @@
-# PancakeSwap.finance Price Scraper
+# PancakeSwap Price Scraper
 
-#``INSTALLATION INSTRUCTIONS: ``
+#INSTALLATION INSTRUCTIONS:
 
-Please note in order to use this repo out of the box, you'll need to download the latest version of chrome driver that the current setup is using by default. 
-Further, installation requires implementation of your database of choice, for the simplicity, Firebase Realtime Database was chosen, each day has its own parent node (YYYYMMDD) format with child nodes (HHMM) that have child nodes (seconds).
-```Data Format
-{
-    "CAKE/BUSD": {
-        "20210402": {
-            "00:44": {
-                "15": {
-                    'time': '04/02/2021, 00:44:15', 
-                    'value': '17.059'
-                }
-            }
-        }
-    }
-}
-```
-
-Get chrome driver: https://chromedriver.chromium.org/downloads 
+Install chrome & get chrome driver of appropriate version: https://chromedriver.chromium.org/downloads 
 
 After downloading Chrome Driver, place it inside the project directory, to folder ./drivers/chromedriver.exe
 
-``Firebase Integration:``
+Since the scraper has support for multiple exchanges (running pancakeswap.finance frontend), arguments can be used to specify pair that should be tracked, different exchange url as well as alias that will be showed in the db instead of the url:
 
-Download service account key from Firebase dashboard, place it in home directory of the project './serviceAccountKey.json'
+``--c1`` -> currency1, type: str, default: BNB
 
-#``Packages used:``
+``--c2`` -> currency2, type: str, default: BUSD
+
+``--ex`` -> target_exchange, type: str, default: https://exchange.pancakeswap.finance/#/swap
+
+``--exalias`` -> exchange_alias, type: str, default: PANCAKESWAP
+
+
+#Packages used:
+
 ``selenium`` 
-``firebase_admin`` 
+
