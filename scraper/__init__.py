@@ -2,8 +2,8 @@ from selenium import webdriver
 from datetime import datetime
 from selenium.webdriver.common.keys import Keys
 
-class Pancakeswap_scraper():
-    def __init__(self, url="https://exchange.pancakeswap.finance/#/swap"):
+class Scraper():
+    def __init__(self, url=""):
         # placeholders
         self.pair = ""
         self.currency1_amount = -1
@@ -30,7 +30,7 @@ class Pancakeswap_scraper():
         self.currency_1_input.click()
         self.currency_1_input.send_keys(str(amount))
 
-    def select_pair(self, currency1="CAKE", currency2="BUSD", currency1_amount=1):
+    def select_pair(self, currency1="BNB", currency2="BUSD", currency1_amount=1):
         # Select first currency
         self.currency_1_btn.click()
         token_search = self.browser.find_element_by_id("token-search-input")
@@ -64,10 +64,8 @@ class Pancakeswap_scraper():
         # second one is used for determining correct path
 
         date_data = datetime.now()
-        # {data} , {pair - BNB_BUSD, replace / with _ , date - YYYYMMDD, time - HHMM, seconds - SS}
-        return {"time": date_data.strftime("%m/%d/%Y, %H:%M:%S"), "value": value}, \
-               {"pair": self.pair.replace('/', '_'), "date": date_data.strftime("%Y%m%d"), "time": date_data.strftime("%H%M"),
-                "seconds": date_data.strftime("%S")}
+        return {"time": date_data.strftime("%m/%d/%Y, %H:%M:%S"), "value": value, "pair": self.pair.replace('/', '_')}
+
 
 
 

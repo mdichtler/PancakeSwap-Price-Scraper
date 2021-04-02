@@ -29,3 +29,4 @@ Download service account key from Firebase dashboard, place it in home directory
 
 #``Packages used:``
 ``selenium`` 
+``firebase_admin`` 

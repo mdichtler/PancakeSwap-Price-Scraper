@@ -1,26 +1,51 @@
-from pancakeswap_scraper import Pancakeswap_scraper
-from firebase_interface import  Firebase_Interface
-# initialize, this ensures the browser is opened only once, otherwise you would run out of ram eventually (in case of
-# continuous listening)
-swap = Pancakeswap_scraper()
-# instead of . / etc we are using _
-fb = Firebase_Interface(scraped_site="pancakeswap_finance")
-# select pair you want to listen to, possibility to pass currency amount if you don't want to check 1:many ratio
-currency1 = input("Enter First Currency: ")
-currency2 = input("Enter Second Currency: ")
+from scraper import Scraper
+from sqlite import  sqliteDB
+import sys
+import argparse
 
-swap.select_pair(currency1=currency1, currency2=currency2)
+parser = argparse.ArgumentParser(description='Parser')
+parser.add_argument("--c1", type=str, default="BNB")
+parser.add_argument("--c2", type=str, default="BUSD")
+parser.add_argument("--ex", type=str, default="https://exchange.pancakeswap.finance/#/swap")
+parser.add_argument("--exalias", type=str, default="PANCAKESWAP")
 
+
+args = parser.parse_args()
+
+# parse parameters from run command
+currency1 = args.c1
+currency2 = args.c2
+target_exchange = args.ex
+exchange_alias = args.exalias
+
+db = sqliteDB()
+
+# check if table already exists, otherwise create it
+db._table_exists()
+
+# url defaults to pancakeswap.finance if not provided
+if target_exchange == "":
+    scraper = Scraper(url="https://exchange.pancakeswap.finance/#/swap")
+else:
+    scraper = Scraper(url=target_exchange)
+
+scraper.select_pair(currency1=currency1, currency2=currency2)
+
+# update in infinite loop
 old_value = None
 while True:
     # get price
-    data, format = swap.get_pair_price()
+    data = scraper.get_pair_price()
     if old_value == data["value"]:
         pass
     else:
         # only do update on price change
         old_value = data["value"]
-        fb.save_data(pair=format["pair"], date=format["date"], time=format["time"], seconds=format["seconds"], data=data)
+        # check if exchange alias is empty, if yes use default
+        if exchange_alias == "":
+            db.insert_record(datetime=data["time"], exchange="https://exchange.pancakeswap.finance/#/swap", pair=data["pair"], value=data["value"])
+        else:
+            db.insert_record(datetime=data["time"], exchange=exchange_alias, pair=data["pair"], value=data["value"])
         print("Saving data: ", data, format)
 
 
