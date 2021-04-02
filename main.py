@@ -6,7 +6,10 @@ swap = Pancakeswap_scraper()
 # instead of . / etc we are using _
 fb = Firebase_Interface(scraped_site="pancakeswap_finance")
 # select pair you want to listen to, possibility to pass currency amount if you don't want to check 1:many ratio
-swap.select_pair(currency1="BNB", currency2="BUSD")
+currency1 = input("Enter First Currency: ")
+currency2 = input("Enter Second Currency: ")
+
+swap.select_pair(currency1=currency1, currency2=currency2)
 
 old_value = None
 while True:

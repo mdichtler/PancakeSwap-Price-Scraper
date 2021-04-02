@@ -35,7 +35,7 @@ class Pancakeswap_scraper():
         self.currency_1_btn.click()
         token_search = self.browser.find_element_by_id("token-search-input")
         token_search.send_keys(currency1)
-        self.browser.implicitly_wait(1)
+        self.browser.implicitly_wait(3)
         token_search.send_keys(Keys.ENTER)
         self.browser.implicitly_wait(1)
 
