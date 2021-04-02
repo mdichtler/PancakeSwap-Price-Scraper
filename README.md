@@ -16,6 +16,8 @@ Since the scraper has support for multiple exchanges (running pancakeswap.financ
 
 ``--exalias`` -> exchange_alias, type: str, default: PANCAKESWAP
 
+``--reverse`` -> reverse, type: bool, default: False - allows you to reverse pair and get selling price
+
 
 #Packages used:
 

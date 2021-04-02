@@ -8,6 +8,7 @@ parser.add_argument("--c1", type=str, default="BNB")
 parser.add_argument("--c2", type=str, default="BUSD")
 parser.add_argument("--ex", type=str, default="https://exchange.pancakeswap.finance/#/swap")
 parser.add_argument("--exalias", type=str, default="PANCAKESWAP")
+parser.add_argument("--reverse", type=bool, default=False)
 
 
 args = parser.parse_args()
@@ -17,6 +18,7 @@ currency1 = args.c1
 currency2 = args.c2
 target_exchange = args.ex
 exchange_alias = args.exalias
+reverse= args.reverse
 
 db = sqliteDB()
 
@@ -29,7 +31,7 @@ if target_exchange == "":
 else:
     scraper = Scraper(url=target_exchange)
 
-scraper.select_pair(currency1=currency1, currency2=currency2)
+scraper.select_pair(currency1=currency1, currency2=currency2, reverse=reverse)
 
 # update in infinite loop
 old_value = None
