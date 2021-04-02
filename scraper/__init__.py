@@ -36,7 +36,7 @@ class Scraper():
         self.currency_2_input.send_keys(str(amount))
 
     def select_pair(self, currency1="BNB", currency2="BUSD", reverse=False, currency1_amount=1 ):
-        self.reverse = True
+        self.reverse = reverse
         # Select first currency
         self.currency_1_btn.click()
         token_search = self.browser.find_element_by_id("token-search-input")
@@ -65,6 +65,7 @@ class Scraper():
 
     # pancakeswap updates every 30 seconds, you can call this in a loop for continuous collection
     def get_pair_price(self):
+        # print(self.reverse)
         # wait for input value to update, create loop to get updated value
         if self.reverse:
             value = self.currency_1_input.get_attribute("value")
