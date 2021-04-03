@@ -2,6 +2,8 @@
 
 #INSTALLATION INSTRUCTIONS:
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ZduRt10Bvh0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 Install chrome & get chrome driver of appropriate version: https://chromedriver.chromium.org/downloads 
 
 After downloading Chrome Driver, place it inside the project directory, to folder ./drivers/chromedriver.exe
