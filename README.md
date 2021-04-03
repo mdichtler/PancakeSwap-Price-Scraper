@@ -1,8 +1,9 @@
 # PancakeSwap Price Scraper
 
-#INSTALLATION INSTRUCTIONS:
+# INSTALLATION INSTRUCTIONS:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/ZduRt10Bvh0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+Video instructions: 
+[![IMAGE ALT TEXT HERE](https://i.imgur.com/5bnvKId.png)](https://www.youtube.com/watch?v=ZduRt10Bvh0)
 
 Install chrome & get chrome driver of appropriate version: https://chromedriver.chromium.org/downloads 
 
@@ -21,7 +22,7 @@ Since the scraper has support for multiple exchanges (running pancakeswap.financ
 ``--reverse`` -> reverse, type: bool, default: False - allows you to reverse pair and get selling price
 
 
-#Packages used:
+# Packages used:
 
 ``selenium`` 
 
