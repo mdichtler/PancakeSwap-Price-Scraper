@@ -1,28 +1,39 @@
-from selenium import webdriver
 from datetime import datetime
+
+from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
-class Scraper():
+
+class Scraper:
     def __init__(self, url=""):
         # placeholders
         self.pair = ""
         self.currency1_amount = -1
         self.reverse = False
 
-
         # LOAD Site
         option = webdriver.ChromeOptions()
 
-        self.browser = webdriver.Chrome(executable_path="./drivers/chromedriver", chrome_options=option)
+        self.browser = webdriver.Chrome(
+            executable_path="./drivers/chromedriver", chrome_options=option
+        )
         self.browser.get(url)
         self.browser.implicitly_wait(5)
         # Find elements
         # Buttons
-        self.currency_1_btn = self.browser.find_element_by_xpath('//*[@id="swap-currency-input"]/div/div[2]/button')
-        self.currency_2_btn = self.browser.find_element_by_xpath('//*[@id="swap-currency-output"]/div/div[2]/button')
+        self.currency_1_btn = self.browser.find_element_by_xpath(
+            '//*[@id="swap-currency-input"]/div/div[2]/button'
+        )
+        self.currency_2_btn = self.browser.find_element_by_xpath(
+            '//*[@id="swap-currency-output"]/div/div[2]/button'
+        )
         # Input
-        self.currency_1_input = self.browser.find_element_by_xpath('//*[@id="swap-currency-input"]/div/div[2]/input')
-        self.currency_2_input = self.browser.find_element_by_xpath('//*[@id="swap-currency-output"]/div/div[2]/input')
+        self.currency_1_input = self.browser.find_element_by_xpath(
+            '//*[@id="swap-currency-input"]/div/div[2]/input'
+        )
+        self.currency_2_input = self.browser.find_element_by_xpath(
+            '//*[@id="swap-currency-output"]/div/div[2]/input'
+        )
 
     # HELPER FUNCTIONS #
 
@@ -35,7 +46,9 @@ class Scraper():
         self.currency_2_input.click()
         self.currency_2_input.send_keys(str(amount))
 
-    def select_pair(self, currency1="BNB", currency2="BUSD", reverse=False, currency1_amount=1 ):
+    def select_pair(
+        self, currency1="BNB", currency2="BUSD", reverse=False, currency1_amount=1
+    ):
         self.reverse = reverse
         # Select first currency
         self.currency_1_btn.click()
@@ -76,21 +89,12 @@ class Scraper():
             while value is None or value == "":
                 value = self.currency_2_input.get_attribute("value")
 
-
         # returns two values, first one is saved to database (save_data == data),
         # second one is used for determining correct path
 
         date_data = datetime.now()
-        return {"time": date_data.strftime("%m/%d/%Y, %H:%M:%S"), "value": value, "pair": self.pair.replace('/', '_')}
-
-
-
-
-
-
-
-
-
-
-
-
+        return {
+            "time": date_data.strftime("%m/%d/%Y, %H:%M:%S"),
+            "value": value,
+            "pair": self.pair.replace("/", "_"),
+        }

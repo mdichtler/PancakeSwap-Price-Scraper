@@ -1,12 +1,15 @@
-from scraper import Scraper
-from sqlite import  sqliteDB
-import sys
 import argparse
+import sys
 
-parser = argparse.ArgumentParser(description='Parser')
+from scraper import Scraper
+from sqlite import sqliteDB
+
+parser = argparse.ArgumentParser(description="Parser")
 parser.add_argument("--c1", type=str, default="BNB")
 parser.add_argument("--c2", type=str, default="BUSD")
-parser.add_argument("--ex", type=str, default="https://exchange.pancakeswap.finance/#/swap")
+parser.add_argument(
+    "--ex", type=str, default="https://exchange.pancakeswap.finance/#/swap"
+)
 parser.add_argument("--exalias", type=str, default="PANCAKESWAP")
 parser.add_argument("--reverse", type=bool, default=False)
 
@@ -18,7 +21,7 @@ currency1 = args.c1
 currency2 = args.c2
 target_exchange = args.ex
 exchange_alias = args.exalias
-reverse= args.reverse
+reverse = args.reverse
 
 db = sqliteDB()
 
@@ -45,11 +48,17 @@ while True:
         old_value = data["value"]
         # check if exchange alias is empty, if yes use default
         if exchange_alias == "":
-            db.insert_record(datetime=data["time"], exchange="https://exchange.pancakeswap.finance/#/swap", pair=data["pair"], value=data["value"])
+            db.insert_record(
+                datetime=data["time"],
+                exchange="https://exchange.pancakeswap.finance/#/swap",
+                pair=data["pair"],
+                value=data["value"],
+            )
         else:
-            db.insert_record(datetime=data["time"], exchange=exchange_alias, pair=data["pair"], value=data["value"])
+            db.insert_record(
+                datetime=data["time"],
+                exchange=exchange_alias,
+                pair=data["pair"],
+                value=data["value"],
+            )
         print("Saving data: ", data, format)
-
-
-
-
