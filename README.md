@@ -5,9 +5,8 @@
 Video instructions: 
 [![IMAGE ALT TEXT HERE](https://i.imgur.com/5bnvKId.png)](https://www.youtube.com/watch?v=ZduRt10Bvh0)
 
-Install chrome & get chrome driver of appropriate version: https://chromedriver.chromium.org/downloads 
+``NOW SUPPORTS CONTRACT ADDRESS AS A CURRENCY INPUT``
 
-After downloading Chrome Driver, place it inside the project directory, to folder ./drivers/chromedriver.exe
 
 Since the scraper has support for multiple exchanges (running pancakeswap.finance frontend), arguments can be used to specify pair that should be tracked, different exchange url as well as alias that will be showed in the db instead of the url:
 
@@ -20,6 +19,10 @@ Since the scraper has support for multiple exchanges (running pancakeswap.financ
 ``--exalias`` -> exchange_alias, type: str, default: PANCAKESWAP
 
 ``--reverse`` -> reverse, type: bool, default: False - allows you to reverse pair and get selling price
+
+``--path`` -> bin_path, type: str, default: "C:\Program Files\Google\Chrome\Application\chrome.exe" - allows you to specify path to chrome driver if not available within default location
+
+
 
 
 # Packages used:

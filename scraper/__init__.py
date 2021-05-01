@@ -1,8 +1,13 @@
 from datetime import datetime
 
+
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
+
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 class Scraper:
     def __init__(self, url="", bin_path=""):
@@ -56,6 +61,14 @@ class Scraper:
         token_search = self.browser.find_element_by_id("token-search-input")
         token_search.send_keys(currency1)
         self.browser.implicitly_wait(3)
+
+        # handle token address vs actual token
+        # xpath of button that shows up after adding token
+        #  /html/body/reach-portal[1]/div[3]/div/div/div/div/div[3]/div[1]/div/div/div/div[1]/div[2]/div
+
+        if len(currency1) > 10:
+            WebDriverWait(self.browser, 20).until(EC.presence_of_element_located((By.XPATH, "/html/body/reach-portal[1]/div[3]/div/div/div/div/div[3]/div[1]/div/div/div/div[1]/div[2]/div")))
+
         token_search.send_keys(Keys.ENTER)
         self.browser.implicitly_wait(1)
 
@@ -64,6 +77,10 @@ class Scraper:
         token_search = self.browser.find_element_by_id("token-search-input")
         token_search.send_keys(currency2)
         self.browser.implicitly_wait(1)
+        if len(currency2) > 10:
+            WebDriverWait(self.browser, 20).until(EC.presence_of_element_located((By.XPATH,
+                                                                                  "/html/body/reach-portal[1]/div[3]/div/div/div/div/div[3]/div[1]/div/div/div/div[1]/div[2]/div")))
+
         token_search.send_keys(Keys.ENTER)
         self.browser.implicitly_wait(1)
         # only send currency value if its changing
