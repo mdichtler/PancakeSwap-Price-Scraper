@@ -1,5 +1,4 @@
 import argparse
-import sys
 
 from scraper import Scraper
 from sqlite import sqliteDB
@@ -12,6 +11,8 @@ parser.add_argument(
 )
 parser.add_argument("--exalias", type=str, default="PANCAKESWAP")
 parser.add_argument("--reverse", type=bool, default=False)
+
+# user can specify chrome binary using --path parameter if not in default location
 parser.add_argument("--path", type=str, default="C:\Program Files\Google\Chrome\Application\chrome.exe")
 
 args = parser.parse_args()
