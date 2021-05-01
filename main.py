@@ -12,7 +12,7 @@ parser.add_argument(
 )
 parser.add_argument("--exalias", type=str, default="PANCAKESWAP")
 parser.add_argument("--reverse", type=bool, default=False)
-
+parser.add_argument("--path", type=str, default="C:\Program Files\Google\Chrome\Application\chrome.exe")
 
 args = parser.parse_args()
 
@@ -22,6 +22,7 @@ currency2 = args.c2
 target_exchange = args.ex
 exchange_alias = args.exalias
 reverse = args.reverse
+bin_path = args.path
 
 db = sqliteDB()
 
@@ -30,9 +31,9 @@ db._table_exists()
 
 # url defaults to pancakeswap.finance if not provided
 if target_exchange == "":
-    scraper = Scraper(url="https://exchange.pancakeswap.finance/#/swap")
+    scraper = Scraper(url="https://exchange.pancakeswap.finance/#/swap", bin_path=bin_path)
 else:
-    scraper = Scraper(url=target_exchange)
+    scraper = Scraper(url=target_exchange, bin_path=bin_path)
 
 scraper.select_pair(currency1=currency1, currency2=currency2, reverse=reverse)
 

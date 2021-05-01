@@ -5,7 +5,7 @@ from selenium.webdriver.common.keys import Keys
 
 
 class Scraper:
-    def __init__(self, url=""):
+    def __init__(self, url="", bin_path=""):
         # placeholders
         self.pair = ""
         self.currency1_amount = -1
@@ -13,9 +13,10 @@ class Scraper:
 
         # LOAD Site
         option = webdriver.ChromeOptions()
+        option.binary_location = bin_path
 
         self.browser = webdriver.Chrome(
-            executable_path="./drivers/chromedriver", chrome_options=option
+            executable_path="./drivers/chromedriver", options=option
         )
         self.browser.get(url)
         self.browser.implicitly_wait(5)
