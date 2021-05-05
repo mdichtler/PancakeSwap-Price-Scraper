@@ -3,7 +3,7 @@
 # INSTALLATION INSTRUCTIONS:
 
 Video instructions: 
-[![IMAGE ALT TEXT HERE](https://i.imgur.com/5bnvKId.png)](https://www.youtube.com/watch?v=ZduRt10Bvh0)
+[![IMAGE ALT TEXT HERE](https://i.imgur.com/yKOKeqZ.png)](https://www.youtube.com/watch?v=ZduRt10Bvh0)
 
 ``NOW SUPPORTS CONTRACT ADDRESS AS A CURRENCY INPUT``
 
